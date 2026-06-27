@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marco — Troubleshooting &amp; Action Plan</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0f1419; color: #e6edf3; font: 15px/1.5 -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 28px 56px; }
+  h1 { font-size: 22px; margin: 0 0 2px; }
+  .meta { color: #8b98a5; font-size: 13px; margin-bottom: 20px; }
+  .legend { background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 10px 14px; margin-bottom: 22px; font-size: 13px; color: #b6c2cf; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 8px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #21262d; }
+  th { background: #161b22; color: #8b98a5; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+  .step { font-weight: 700; color: #e6edf3; white-space: nowrap; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .red { background: #3d1418; color: #ff8a8a; }
+  .amber { background: #3a2c0a; color: #ffce6b; }
+  .green { background: #0f2f1c; color: #6bdca0; }
+  .gray { background: #21262d; color: #b6c2cf; }
+  td small { color: #8b98a5; }
+  .section-title { margin: 28px 0 8px; font-size: 16px; color: #6bb4ff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Marco — Troubleshooting &amp; Action Plan</h1>
+  <div class="meta">Week of: <strong>[UPDATE EACH WEEK]</strong> · Owner: Mark · Edit <code>docs/troubleshooting.html</code> in the <code>marco-dashboard</code> repo and push; this page updates in ~1 minute.</div>
+
+  <div class="legend">
+    For each step in the funnel: what's the problem, what we tested, what worked, and the next action. Status:
+    <span class="pill red">blocking</span> <span class="pill amber">in progress</span> <span class="pill green">working</span> <span class="pill gray">watching</span>
+  </div>
+
+  <div class="section-title">Funnel chain — Reached → Human → Transferred → Reached buyer → Billable</div>
+  <table>
+    <thead>
+      <tr><th style="width:14%">Step</th><th style="width:8%">Status</th><th style="width:30%">Problem</th><th style="width:24%">Tests run / what worked</th><th style="width:24%">Next action</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="step">Reached</td>
+        <td><span class="pill red">blocking</span></td>
+        <td>Caller-ID reputation / answer rate is the top constraint (single-digit connects per 500 dials).</td>
+        <td><small>e.g. redial cap cut 5&rarr;3 on [date]; [result]</small></td>
+        <td><small>[next test]</small></td>
+      </tr>
+      <tr>
+        <td class="step">Human conversation</td>
+        <td><span class="pill amber">in progress</span></td>
+        <td>Most "connected" is voicemail/dead-air/screener, not a person.</td>
+        <td><small>Tier-2 transcript classifier live; genuine ≈ [N] of [connected]</small></td>
+        <td><small>[next prompt/AMD change]</small></td>
+      </tr>
+      <tr>
+        <td class="step">Transferred</td>
+        <td><span class="pill gray">watching</span></td>
+        <td>[hand-off failures: N of M transfers never reached a buyer]</td>
+        <td><small>[test]</small></td>
+        <td><small>[next action]</small></td>
+      </tr>
+      <tr>
+        <td class="step">Reached buyer</td>
+        <td><span class="pill amber">in progress</span></td>
+        <td>Agents answer unreliably vs corporate buyers.</td>
+        <td><small>[effective-rate / routing test]</small></td>
+        <td><small>[next action]</small></td>
+      </tr>
+      <tr>
+        <td class="step">Billable</td>
+        <td><span class="pill gray">watching</span></td>
+        <td>[conversion / return-rate notes]</td>
+        <td><small>[test]</small></td>
+        <td><small>[next action]</small></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Open tickets / blockers</div>
+  <table>
+    <thead><tr><th style="width:18%">Item</th><th style="width:12%">Owner</th><th style="width:12%">Status</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>CtC reader allowlist (EIP 16.59.204.90)</td><td>Elvis / Raghu</td><td><span class="pill red">blocking</span></td><td>Unblocks the AWS auto-refresh.</td></tr>
+      <tr><td>Ultravox key → AWS Secrets Manager</td><td>Mark</td><td><span class="pill amber">in progress</span></td><td>Needed for the classifier to run on the EC2.</td></tr>
+      <tr><td>[add rows weekly]</td><td>—</td><td><span class="pill gray">—</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
